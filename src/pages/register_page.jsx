@@ -3,11 +3,13 @@ import CustomInput from "../components/inputs/custom_input";
 import CustomButton from "../components/buttons/custom_button";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { fire_auth } from "../firebase";
+import { addUser } from "../operations/user_operations";
 
 function createAccount(email, password) {
     createUserWithEmailAndPassword(fire_auth, email, password)
         .then((userCredential) => {
             const user = userCredential.user;
+            addUser(email);
             console.log(user);
         })
         .catch((error) => {

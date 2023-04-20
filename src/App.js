@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import LoginPage from "./pages/login_page";
 import RegisterPage from "./pages/register_page";
+import Dashboard from "./dashboard";
 
 function App() {
     return (
@@ -11,6 +12,7 @@ function App() {
                     <Route index element={<LoginPage />} />
                     <Route path="login" element={<LoginPage />} />
                     <Route path="register" element={<RegisterPage />} />
+                    <Route path="dashboard" element={<Dashboard />} />
                     <Route path="*" element={<div>404 NOT FOUND</div>} />
                 </Routes>
             </BrowserRouter>

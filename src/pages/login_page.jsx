@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 import CustomInput from "../components/inputs/custom_input";
 import CustomButton from "../components/buttons/custom_button";
+import { Navigate } from "react-router-dom";
 import { fire_auth } from "../firebase";
 
 import { signInWithEmailAndPassword } from "firebase/auth";
 
-function signIn(email, password) {
+function signIn(email, password, setLogin) {
     signInWithEmailAndPassword(fire_auth, email, password)
         .then((userCredential) => {
-            const user = userCredential.user;
-            console.log(user);
+            console.log(fire_auth.currentUser.email);
+            setLogin(true);
         })
         .catch((error) => {
             const errorMessage = error.message;
@@ -20,6 +21,13 @@ function signIn(email, password) {
 function LoginPage(props) {
     const [email, setEmail] = useState("");
     const [password, setpassword] = useState("");
+    const [isLoggedIn, setLogin] = useState(
+        fire_auth.currentUser == null ? false : true
+    );
+
+    if (isLoggedIn) {
+        return <Navigate to="/dashboard" />;
+    }
 
     return (
         <div
@@ -56,7 +64,7 @@ function LoginPage(props) {
                 <CustomButton
                     text="Login"
                     onClick={() => {
-                        signIn(email, password);
+                        signIn(email, password, setLogin);
                     }}
                 />
                 <label>
