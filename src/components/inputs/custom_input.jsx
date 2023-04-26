@@ -15,7 +15,7 @@ function CustomInput(props) {
 CustomInput.propTypes = {
     placeHolder: PropTypes.string,
     type: PropTypes.string,
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
 };
 
 export default CustomInput;

@@ -18,7 +18,7 @@ function CustomButton(props) {
 
 CustomButton.propTypes = {
     text: PropTypes.string,
-    onClick: PropTypes.func
+    onClick: PropTypes.func,
 };
 
 export default CustomButton;

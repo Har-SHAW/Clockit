@@ -71,7 +71,9 @@ export default function AddTaskDialog(props) {
                     >
                         ADD TASK
                     </LoadingButton>
-                    <Button onClick={handleClose} variant="outlined">CANCEL</Button>
+                    <Button onClick={handleClose} variant="outlined">
+                        CANCEL
+                    </Button>
                 </DialogActions>
             </Dialog>
         </div>

@@ -1,18 +1,12 @@
 import React, { useState } from "react";
-import {
-    Button,
-    ButtonGroup,
-    IconButton,
-    List,
-    Stack,
-    Typography,
-} from "@mui/material";
-import { DeleteOutline, EditOutlined, LibraryAdd } from "@mui/icons-material";
+import { IconButton, List, Stack, Typography } from "@mui/material";
+import { LibraryAdd } from "@mui/icons-material";
 
 import PropTypes from "prop-types";
-import { addTask, removeTask } from "../../operations/user_operations";
+import { addTask } from "../../operations/user_operations";
 import AddTaskDialog from "../dialogs/add_task_dialog";
 import EditTaskDialog from "../dialogs/edit_task_dialog";
+import TaskTile from "./task_tile";
 
 function TaskSection(props) {
     const [openAdd, setOpen] = useState(false);
@@ -60,46 +54,16 @@ function TaskSection(props) {
                 </IconButton>
             </div>
             <List>
-                {props.tasks != null &&
+                {props.tasks &&
                     props.tasks.map((item) => {
                         return (
-                            <ButtonGroup
-                                style={{
-                                    width: "90%",
-                                    margin: "10px 0px 10px 0px",
-                                }}
+                            <TaskTile
                                 key={item}
-                                variant="contained"
-                                aria-label="Disabled elevation buttons"
-                            >
-                                <Button
-                                    style={{
-                                        width: "100%",
-                                        padding: "10px",
-                                        backgroundColor: "white",
-                                        color: "black",
-                                        fontWeight: "bold",
-                                    }}
-                                >
-                                    {item}
-                                </Button>
-                                <Button onClick={()=>{
-                                    setEditTask(item);
-                                }}>
-                                    <EditOutlined />
-                                </Button>
-                                <Button
-                                    style={{
-                                        backgroundColor: "rgba(201,0,40,0.95)",
-                                    }}
-                                    onClick={async () => {
-                                        await removeTask(item);
-                                        await props.getData();
-                                    }}
-                                >
-                                    <DeleteOutline />
-                                </Button>
-                            </ButtonGroup>
+                                item={item}
+                                start={props.lastAction.task === item}
+                                setEditTask={setEditTask}
+                                getData={props.getData}
+                            />
                         );
                     })}
             </List>
