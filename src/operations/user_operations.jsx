@@ -44,7 +44,7 @@ export const getTasks = async () => {
     const email = fire_auth.currentUser.email;
     const docRef = await getDoc(doc(fire_db, "users", email));
     const data = docRef.data();
-    return data.tasks;
+    return data;
 };
 
 export const addUser = async (email) => {
@@ -61,4 +61,40 @@ export const addUser = async (email) => {
     await setDoc(records, {
         data: [],
     });
+};
+
+export const getAbsoluteDate = (minus = 0, isStartDate) => {
+    let date = new Date(Date.now() - minus * 86400000);
+
+    if (isStartDate) {
+        date.setHours(0);
+        date.setMinutes(0);
+    } else {
+        date.setHours(23);
+        date.setMinutes(59);
+    }
+
+    return isStartDate
+        ? {
+              startDate: date,
+              startFilter: Math.floor(date / 60000),
+          }
+        : {
+              endDate: date,
+              endFilter: Math.floor(date / 60000),
+          };
+};
+
+export const getDateFilter = (selection) => {
+    selection.endDate.setHours(23);
+    selection.endDate.setMinutes(59);
+    selection.startDate.setHours(0);
+    selection.startDate.setMinutes(0);
+
+    return {
+        startDate: selection.startDate,
+        startFilter: Math.floor(selection.startDate / 60000),
+        endDate: selection.endDate,
+        endFilter: Math.floor(selection.endDate / 60000),
+    };
 };

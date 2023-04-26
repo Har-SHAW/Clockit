@@ -16,11 +16,11 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+export const fire_app = initializeApp(firebaseConfig);
 
 // Firestore
-export const fire_db = getFirestore(app);
+export const fire_db = getFirestore(fire_app);
 export const users_collection = collection(fire_db, "users");
 
 // Initialize Firebase Authentication and get a reference to the service
-export const fire_auth = getAuth(app);
+export const fire_auth = getAuth(fire_app);
