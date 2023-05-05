@@ -11,7 +11,6 @@ import {
 } from "recharts";
 
 function TaskLineChart(props) {
-    console.log(props.src);
     const [opacity, setOpacity] = useState({});
 
     const colors = ["#8884d8", "#D6D470", "#9CD884", "#D584D8", "#D88484"];

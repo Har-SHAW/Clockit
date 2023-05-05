@@ -63,14 +63,6 @@ export default function DropDownOptions(props) {
                         >
                             Last 30 Days
                         </MenuItem>
-                        <MenuItem
-                            onClick={() => {
-                                setTitle("Custom Dates");
-                                popupState.close();
-                            }}
-                        >
-                            Custom Dates
-                        </MenuItem>
                     </Menu>
                 </React.Fragment>
             )}
