@@ -5,7 +5,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import Slide from "@mui/material/Slide";
-import { Alert, TextField } from "@mui/material";
+import { TextField } from "@mui/material";
 import { editTask } from "../../operations/user_operations";
 import { LoadingButton } from "@mui/lab";
 
@@ -15,12 +15,10 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 export default function EditTaskDialog(props) {
     const [task, setTask] = React.useState("");
-    const [error, setError] = React.useState("");
     const [loading, setLoading] = React.useState(false);
 
     const handleClose = () => {
         setTask("");
-        setError("");
         props.setEditTask("");
     };
 
@@ -46,11 +44,6 @@ export default function EditTaskDialog(props) {
                         }}
                         placeholder="New Task Name"
                     />
-                    {error !== "" && (
-                        <Alert style={{ marginTop: "10px" }} severity="error">
-                            {error}
-                        </Alert>
-                    )}
                 </DialogContent>
                 <DialogActions>
                     <LoadingButton
@@ -59,15 +52,16 @@ export default function EditTaskDialog(props) {
                         onClick={async () => {
                             setLoading(true);
                             if (task === "") {
-                                setError("Task Name cannot be empty");
+                                props.setError("Task Name cannot be empty");
                                 setLoading(false);
                             } else if (props.checkIfExist(task)) {
-                                setError("Task already exist!");
+                                props.setError("Task already exist!");
                                 setLoading(false);
                             } else {
                                 await editTask(props.task, task.toLowerCase());
                                 await props.getTasks();
                                 handleClose();
+                                props.setSuccess("Task Edited Successfully!");
                                 setLoading(false);
                             }
                         }}
