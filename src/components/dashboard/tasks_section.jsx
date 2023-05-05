@@ -74,6 +74,7 @@ function TaskSection(props) {
                 addTask={addTask}
                 getTasks={props.getData}
                 checkIfExist={checkIfExist}
+                setError={props.setError} setSuccess={props.setSuccess}
             />
 
             <EditTaskDialog
@@ -81,6 +82,7 @@ function TaskSection(props) {
                 task={editTask}
                 getTasks={props.getData}
                 checkIfExist={checkIfExist}
+                setError={props.setError} setSuccess={props.setSuccess}
             />
         </Stack>
     );
