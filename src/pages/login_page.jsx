@@ -5,7 +5,6 @@ import { Navigate } from "react-router-dom";
 import { fire_auth } from "../firebase";
 import './login.css';
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { Alert, Snackbar } from "@mui/material";
 
 function signIn(login, setLogin, setErrLogin, setSuccess) {
     signInWithEmailAndPassword(fire_auth, login.email, login.password)
@@ -21,7 +20,7 @@ function signIn(login, setLogin, setErrLogin, setSuccess) {
 }
 
 function createAccount(signup, setErrSignup, setSuccess) {
-    if(signup.password !== signup.confirm){
+    if (signup.password !== signup.confirm) {
         setErrSignup("Password did not match");
         return;
     }
@@ -42,15 +41,12 @@ function LoginPage(props) {
     const [isLoggedIn, setLogin] = useState(
         fire_auth.currentUser == null ? false : true
     );
-    const [signupError, setErrSignup] = useState("");
-    const [loginError, setErrLogin] = useState("");
     const [login, setLoginCreds] = useState({
         email: "", password: ""
     });
     const [signup, setSignupCreds] = useState({
         email: "", password: "", confirm: ""
     });
-    const [success, setSuccess] = useState("");
 
     if (isLoggedIn) {
         return <Navigate to="/dashboard" />;
@@ -98,27 +94,9 @@ function LoginPage(props) {
                             className="button"
                             onClick={(event) => {
                                 event.preventDefault();
-                                createAccount(signup, setErrSignup, setSuccess);
+                                createAccount(signup, props.setError, props.setSuccess);
                             }}
                         >Register</button>
-                        <Snackbar open={signupError} autoHideDuration={6000} onClose={() => { setErrSignup(""); }}
-                            anchorOrigin={{ vertical: "top", horizontal: "center" }}>
-                            <Alert variant="filled" onClose={() => { setErrSignup(""); }} severity="error" sx={{ width: '100%' }}>
-                                {signupError}
-                            </Alert>
-                        </Snackbar>
-                        <Snackbar open={loginError} autoHideDuration={6000} onClose={() => { setErrLogin(""); }}
-                            anchorOrigin={{ vertical: "top", horizontal: "center" }}>
-                            <Alert variant="filled" onClose={() => { setErrLogin(""); }} severity="error" sx={{ width: '100%' }}>
-                                {loginError}
-                            </Alert>
-                        </Snackbar>
-                        <Snackbar open={success} autoHideDuration={6000} onClose={() => { setSuccess(""); }}
-                            anchorOrigin={{ vertical: "top", horizontal: "center" }}>
-                            <Alert variant="filled" onClose={() => { setSuccess(""); }} severity="success" sx={{ width: '100%' }}>
-                                {success}
-                            </Alert>
-                        </Snackbar>
                     </form>
                 </div>
                 <div className="login">
@@ -150,7 +128,7 @@ function LoginPage(props) {
                             className="button"
                             onClick={(event) => {
                                 event.preventDefault();
-                                signIn(login, setLogin, setErrLogin, setSuccess);
+                                signIn(login, setLogin, props.setError, props.setSuccess);
                             }}
                         >Login</button>
                     </form>
